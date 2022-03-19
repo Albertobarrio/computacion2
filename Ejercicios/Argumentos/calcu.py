@@ -3,7 +3,11 @@
 import getopt
 import sys
 
+# Excepcion en caso de operador incorrecto
+class InvalidOperator(Exception):
+    pass
 
+# Funciones basicas calculadora
 def sumar(a,b):
     print(a + b)
 
@@ -16,26 +20,36 @@ def multiplicar(a,b):
 def dividir(a,b):
     print(a / b)
 
-# Rcivir argumentos
-
+# getopt para tomar opciones y arguments
 opts, args = getopt.getopt(sys.argv[1:], 'o:n:m:')
 
-
 for op, ar in opts:
-    if(op == '-o'):
-        operador = ar
-        print(ar)
-    elif(op == '-n'):
-        numero1 = int(ar)
-        print(ar)
-    elif(op == '-m'):
-        numero2 = int(ar)
-        print(ar)
+    try:
+        if(op == '-o'):
+            if (ar not in ['+','-','*','/']):
+                raise InvalidOperator() 
+            operador = ar
+        elif(op == '-n'):
+            numero1 = int(ar)
+        elif(op == '-m'):
+            numero2 = int(ar)
+    except ValueError:
+        print('Error a ingresado un numero')
+        sys.exit()
+    except InvalidOperator:
+        print('Operador invalido')
+        sys.exit()
+
+
+
 
 if operador == '+':
     sumar(numero1,numero2)
-
-
-
-# Funciones segun la operacion
-
+elif operador == '-':
+    restar(numero1,numero2)
+elif operador == '*':
+    multiplicar(numero1,numero2)
+elif operador == '/':
+    dividir(numero1,numero2)
+else:
+    print("Operador incorrecto")
