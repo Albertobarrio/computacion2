@@ -29,28 +29,15 @@ def main():
             sys.exit()
     
     if operador == '+':
-        sumar(numero1,numero2)
+        print(numero1 + numero2)
     elif operador == '-':
-        restar(numero1,numero2)
+        print(numero1 - numero2)
     elif operador == '*':
-        multiplicar(numero1,numero2)
+        print(numero1 * numero2)
     elif operador == '/':
-        dividir(numero1,numero2)
+        print(numero1 / numero2)
     else:
         print("Operador incorrecto")
-
-def sumar(a,b):
-    print(a + b)
-
-def restar(a,b):
-    print(a - b)
-
-def multiplicar(a,b):
-    print(a * b)
-
-def dividir(a,b):
-    print(a / b)
-
 
 if __name__ == '__main__':
     main()
