@@ -27,7 +27,10 @@ def main():
         except InvalidOperator:
             print('Operador invalido')
             sys.exit()
-    
+    # Forma facil sin el if ese 
+    exec("print(numero1 {} numero2)".format(operador))
+
+"""   
     if operador == '+':
         print(numero1 + numero2)
     elif operador == '-':
@@ -38,6 +41,8 @@ def main():
         print(numero1 / numero2)
     else:
         print("Operador incorrecto")
+"""
+
 
 if __name__ == '__main__':
     main()
