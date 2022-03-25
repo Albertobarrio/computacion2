@@ -4,11 +4,21 @@ import argparse
 import  os
 import  sys
 
-from click import argument
-
 # Creamos el parser
+# prog: sirve para indicar el nombre del programa, por default toma el nombre del script y va a
+#       a ser indicado en el help text
+# description: sirve para indicar el funcionamiento del base del programa y se muestra al princi
+#              pio del programa
+# epilog: testo que se muestra al final del help text
+# usage: sirve para customizar el hel text ahi bien cheto
+# prefix_chars: para modificar el char que usamos para pasar argumentos opcionales , por default
+#              es - pero lo podemos cambiar
 
-cli_parser = argparse.ArgumentParser(description='Copia y pega un archivo')
+cli_parser = argparse.ArgumentParser(prog='Lector',
+                                     usage='%(prog)s [options] path', 
+                                     description='Copia y pega un archivo',
+                                     epilog='Disfrfuta el programa esta re cheto',
+                                     prefix_chars='/')
 
 # Agregamos los argumentos
 cli_parser.add_argument('Path',metavar='path',type=str,help='the path to list')
