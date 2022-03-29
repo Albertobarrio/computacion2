@@ -33,16 +33,33 @@ cli_parser = argparse.ArgumentParser(prog='Lector',
 #   Opcionales no son obligatorios pero cuando se ponen modifican el comportamiento
 # La diferencia es radical es que los opcionales empiezan con - o -- y los posicionales no 
 
-#  Tipos de actions:
-#  -store: stores the input value to the Namespace object. (This is the default action.)
-#  -store_const: stores a constant value when the corresponding optional arguments are specified.
-#  -store_true: stores the Boolean value True when the corresponding optional argument is specified and stores a False elsewhere.
-#  -store_false: stores the Boolean value False when the corresponding optional argument is specified and stores True elsewhere.
-#  -append: stores a list, appending a value to the list each time the option is provided.
-#  -append_const: stores a list appending a constant value to the list each time the option is provided.
-#  -count: stores an int that is equal to the times the option has been provided.
-#  -help: shows a help text and exits.
-#  -version: shows the version of the program and exits.
+# action:
+#   -store: stores the input value to the Namespace object. (This is the default action.)
+#   -store_const: stores a constant value when the corresponding optional arguments are specified.
+#   -store_true: stores the Boolean value True when the corresponding optional argument is specified and stores a False elsewhere.
+#   -store_false: stores the Boolean value False when the corresponding optional argument is specified and stores True elsewhere.
+#   -append: stores a list, appending a value to the list each time the option is provided.
+#   -append_const: stores a list appending a constant value to the list each time the option is provided.
+#   -count: stores an int that is equal to the times the option has been provided.
+#   -help: shows a help text and exits.
+#   -version: shows the version of the program and exits.
+#
+# default: para indicar un valor por si no se paso ningun argumento
+# nargs:  
+#   numero: para indicar la cantidad de parametros ejemplo 3
+#   ?: a single value, which can be optional
+#   *: a flexible number of values, which will be gathered into a list
+#   +: like *, but requiring at least one value
+#   argparse.REMAINDER: all the values that are remaining in the command line
+# 
+# type: Por default toma como valor string pero se puede pasar a int
+# help: Cuando pasamos -h muestra una breve descripcion del argumento
+# metavar: Si un argumento acepta un input le podemos poner un nombre
+#          que el parser va a usar en el help text
+# dest: Para indicar el nombre del Namspace object , por defalut toma el nombre 
+#       mas largo indicado como agumento ejmeplo: -i -input toma args.iput para
+#       acceder pero si le pasamos un nombre toma ese 
+
 
 # Agregamos los argumentos
 cli_parser.add_argument('Path', metavar='path', type=str, help='the path to list')

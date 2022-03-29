@@ -4,7 +4,9 @@ import argparse
 
 cli_parser = argparse.ArgumentParser(allow_abbrev=False)
 cli_parser.add_argument('--input',action='store',type=int,required=True)
-cli_parser.add_argument('--id',action='store',type=int)
+cli_parser.add_argument('--pablo','-p',action='store',type=int,required=True)
+cli_parser.add_argument('numero',type=int)
 
 args = cli_parser.parse_args()
+print(args.p)
 print(args.input)
