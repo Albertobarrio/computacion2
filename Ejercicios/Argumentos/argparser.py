@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import argparse
+from ensurepip import version
 import os
 import sys
 
