@@ -15,7 +15,7 @@ import sys
 #              pio del programa
 # allow_abbrev: permite o no usar abreviaciones argumentos opcionales
 # epilog: testo que se muestra al final del help text
-# usage: sirve para customizar el hel text ahi bien cheto
+# usage: sirve para customizar el help text ahi bien cheto
 # prefix_chars: para modificar el char que usamos para pasar argumentos opcionales , por default
 #              es - pero lo podemos cambiar
 # add_help: para habilitar o no la ayuda automaticas
