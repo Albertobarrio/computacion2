@@ -1,12 +1,18 @@
 import argparse
-from email import message
 import os
+import time
 
-def hijo():
-    pass
 
-if __name__ == "__main__":
+def hijo(pid):
+    suma = 0
+    for i in range(pid):
+        if i % 2 == 0:
+            suma += i
+    time.sleep(0.25)
+    return suma
 
+
+def main():
     # Declaracion del parser
     cli_parser = argparse.ArgumentParser(prog='Sumador',
                                          description='Suma todos los números enteros pares entre 0 y su número de PID',
@@ -19,9 +25,8 @@ if __name__ == "__main__":
                             action='store',
                             type=int,
                             required=True,
-                            help='Numero de procesos hijos',
-                            dest='num')
-    
+                            help='Numero de procesos hijos')
+
     cli_parser.add_argument('-v',
                             '--verboso',
                             action='store_true',
@@ -31,12 +36,18 @@ if __name__ == "__main__":
     args = cli_parser.parse_args()
     
     try:
-        if args.num > 0:
-            for _ in range(args.num):
-                pass            
-        raise ValueError
-
+        if  args.numero > 0:     
+            for _ in range(args.numero):
+                pidpadre = os.getpid()
+                if os.fork() == 0:
+                    pidhijo = os.getpid()
+                    print(f"{pidhijo} - {pidpadre}: {hijo(pidhijo)}")
+                    os._exit(0)
+                os.wait()
+        else:
+            raise ValueError
     except ValueError:
-        print('El numero debe ser mayor a 0') 
+        print('El numero debe ser mayor a cero')
 
-    
+if __name__ == "__main__":
+    main()
