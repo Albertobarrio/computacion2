@@ -1,6 +1,9 @@
 import argparse
+from email import message
 import os
 
+def hijo():
+    pass
 
 if __name__ == "__main__":
 
@@ -24,5 +27,16 @@ if __name__ == "__main__":
                             action='store_true',
                             help='Activar modo verboso')
 
-    # Ejecutamos el Parser
+    # Obtenemos los argumentos
     args = cli_parser.parse_args()
+    
+    try:
+        if args.num > 0:
+            for _ in range(args.num):
+                pass            
+        raise ValueError
+
+    except ValueError:
+        print('El numero debe ser mayor a 0') 
+
+    
