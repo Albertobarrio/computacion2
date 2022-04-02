@@ -44,7 +44,7 @@ def main():
                     if args.verboso:
                         print(f"Starting Process {pidhijo}")
                         print(f"{pidhijo} - {pidpadre}: {hijo(pidhijo)}")
-                        print(f"Ending Process {pidhijo}")
+                        print(f"Ending Process {pidhijo}\n")
                     else:
                         print(f"{pidhijo} - {pidpadre}: {hijo(pidhijo)}")
                     os._exit(0)
