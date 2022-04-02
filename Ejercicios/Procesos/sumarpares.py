@@ -34,20 +34,26 @@ def main():
 
     # Obtenemos los argumentos
     args = cli_parser.parse_args()
-    
+
     try:
-        if  args.numero > 0:     
+        if args.numero > 0:
             for _ in range(args.numero):
                 pidpadre = os.getpid()
                 if os.fork() == 0:
                     pidhijo = os.getpid()
-                    print(f"{pidhijo} - {pidpadre}: {hijo(pidhijo)}")
+                    if args.verboso:
+                        print(f"Starting Process {pidhijo}")
+                        print(f"{pidhijo} - {pidpadre}: {hijo(pidhijo)}")
+                        print(f"Ending Process {pidhijo}")
+                    else:
+                        print(f"{pidhijo} - {pidpadre}: {hijo(pidhijo)}")
                     os._exit(0)
                 os.wait()
         else:
             raise ValueError
     except ValueError:
         print('El numero debe ser mayor a cero')
+
 
 if __name__ == "__main__":
     main()
