@@ -33,26 +33,26 @@ def main():
                             help='Activar modo verboso')
 
     # Obtenemos los argumentos
-    args = cli_parser.parse_args()
-
     try:
-        if args.numero > 0:
-            for _ in range(args.numero):
-                pidpadre = os.getpid()
-                if os.fork() == 0:
-                    pidhijo = os.getpid()
-                    if args.verboso:
-                        print(f"Starting Process {pidhijo}")
-                        print(f"{pidhijo} - {pidpadre}: {hijo(pidhijo)}")
-                        print(f"Ending Process {pidhijo}\n")
-                    else:
-                        print(f"{pidhijo} - {pidpadre}: {hijo(pidhijo)}")
-                    os._exit(0)
-                os.wait()
-        else:
+        args = cli_parser.parse_args()
+        if (args.numero <= 0):
             raise ValueError
     except ValueError:
-        print('El numero debe ser mayor a cero')
+        print("El numero debe ser mayor a cero")
+
+    # Ejecutamos tantas vece segun el valor de n
+    for _ in range(args.numero):
+        pidpadre = os.getpid()
+        if os.fork() == 0:
+            pidhijo = os.getpid()
+            if args.verboso:
+                print(f"Starting Process {pidhijo}")
+                print(f"{pidhijo} - {pidpadre}: {hijo(pidhijo)}")
+                print(f"Ending Process {pidhijo}\n")
+            else:
+                print(f"{pidhijo} - {pidpadre}: {hijo(pidhijo)}")
+            os._exit(0)
+        os.wait()
 
 
 if __name__ == "__main__":
