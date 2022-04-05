@@ -3,12 +3,11 @@ import os
 import time
 
 
-def hijo(pid):
+def sumar(pid):
     suma = 0
     for i in range(pid):
         if i % 2 == 0:
             suma += i
-    time.sleep(0.25)
     return suma
 
 
@@ -42,18 +41,14 @@ def main():
 
     # Ejecutamos tantas vece segun el valor de n
     for _ in range(args.numero):
-        pidpadre = os.getpid()
         if os.fork() == 0:
-            pidhijo = os.getpid()
             if args.verboso:
-                print(f"Starting Process {pidhijo}")
-                print(f"{pidhijo} - {pidpadre}: {hijo(pidhijo)}")
-                print(f"Ending Process {pidhijo}\n")
+                print(f"Starting Process {os.getpid()}")
+                print(f"{os.getpid()} - {os.getppid()}: {sumar(os.getpid())}")
+                print(f"Ending Process {os.getpid()}")
             else:
-                print(f"{pidhijo} - {pidpadre}: {hijo(pidhijo)}")
+                print(f"{os.getpid()} - {os.getppid()}: {sumar(os.getpid())}")
             os._exit(0)
-        os.wait()
-
-
+    os.wait()
 if __name__ == "__main__":
     main()
