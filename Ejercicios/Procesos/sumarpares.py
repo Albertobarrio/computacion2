@@ -49,6 +49,7 @@ def main():
             else:
                 print(f"{os.getpid()} - {os.getppid()}: {sumar(os.getpid())}")
             os._exit(0)
+    # El padre va a esperar a que se ejecuten todos los hijos
     os.wait()
 if __name__ == "__main__":
     main()
