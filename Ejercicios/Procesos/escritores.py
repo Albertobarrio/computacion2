@@ -12,7 +12,7 @@ cli_parser.add_argument('-n',
                         type=int,
                         required=True,
                         choices=range(1, 27),
-                        help='Numero de procesos hijos')
+                        help='Numero de procesos hijos , desde el 1 al 26')
 
 cli_parser.add_argument('-r',
                         '--rep',
@@ -34,28 +34,39 @@ cli_parser.add_argument('-v',
 
 args = cli_parser.parse_args()
 
-
-file_open = open(args.filepath, 'w+')
-
-for _ in range(args.numero):
-    if os.fork() == 0:
-        letra = chr(65 + _)
-        for _ in range(args.rep):
-            if args.verboso:
-                print(f'Proceso {os.getpid()} escribiendo letra {letra}')
-            file_open.write(letra)
-            file_open.flush()
-            time.sleep(1)
-        os._exit(0)
-
-# El padre espera a que termine los hijos
-os.wait()
-
-# Cerramos el archivo
-file_open.close()
+with open(args.filepath, 'w+') as file_open:
+    for _ in range(args.numero):
+        if os.fork() == 0:
+            letra = chr(65 + _)
+            for _ in range(args.rep):
+                if args.verboso:
+                    print(f'Proceso {os.getpid()} escribiendo letra {letra}')
+                file_open.write(letra)
+                file_open.flush()
+                time.sleep(1)
+            os._exit(0)
+    os.wait() # El padre espera a que termine los hijos
 
 # El padre lee el arhivo nuevo y lo muestra por pantalla
 with open(args.filepath, 'r') as new_file:
     for line in new_file:
         print(line)
         # print(line, end='')
+
+
+# Lo mismo pero sin el with
+# file_open = open(args.filepath, 'w+')
+
+# for _ in range(args.numero):
+#     if os.fork() == 0:
+#         letra = chr(65 + _)
+#         for _ in range(args.rep):
+#             if args.verboso:
+#                 print(f'Proceso {os.getpid()} escribiendo letra {letra}')
+#             file_open.write(letra)
+#             file_open.flush()
+#             time.sleep(1)
+#         os._exit(0)
+
+# Cerramos el archivo
+#file_open.close()
