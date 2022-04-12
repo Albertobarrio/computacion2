@@ -2,6 +2,8 @@ import argparse
 import os
 import time
 
+from click import open_file
+
 cli_parser = argparse.ArgumentParser(prog='Escritor',
                                      description='Crea n procesos hijos que escriben una letra en un archivo',
                                      epilog='Trabajo Practico Obligatorio')
@@ -38,27 +40,26 @@ with open(args.filepath, 'w+') as file_open:
     for _ in range(args.numero):
         if os.fork() == 0:
             letra = chr(65 + _)
-            for i in range(args.rep):
+            for _ in range(args.rep):
                 if args.verboso:
                     print(f'Proceso {os.getpid()} escribiendo letra {letra}')
                 file_open.write(letra)
                 file_open.flush()
-                time.sleep(_)
+                time.sleep(1)
             os._exit(0)
-    for _ in range(args.numero): # un for para que el padre esepere a cada hijo
+    # Un for para que el padre esepere a cada hijo
+    for _ in range(args.numero): 
         os.wait() 
-    print("El padre muere") 
 
 # El padre lee el arhivo nuevo y lo muestra por pantalla
 with open(args.filepath, 'r') as new_file:
     for line in new_file:
         print(line)
-        #print(line, end='')
+        
 
 
 # Lo mismo pero sin el with
 # file_open = open(args.filepath, 'w+')
-
 # for _ in range(args.numero):
 #     if os.fork() == 0:
 #         letra = chr(65 + _)
@@ -69,6 +70,5 @@ with open(args.filepath, 'r') as new_file:
 #             file_open.flush()
 #             time.sleep(1)
 #         os._exit(0)
-
 # Cerramos el archivo
 #file_open.close()
