@@ -38,20 +38,22 @@ with open(args.filepath, 'w+') as file_open:
     for _ in range(args.numero):
         if os.fork() == 0:
             letra = chr(65 + _)
-            for _ in range(args.rep):
+            for i in range(args.rep):
                 if args.verboso:
                     print(f'Proceso {os.getpid()} escribiendo letra {letra}')
                 file_open.write(letra)
                 file_open.flush()
-                time.sleep(1)
+                time.sleep(_)
             os._exit(0)
-    os.wait() # El padre espera a que termine los hijos
+    for _ in range(args.numero): # un for para que el padre esepere a cada hijo
+        os.wait() 
+    print("El padre muere") 
 
 # El padre lee el arhivo nuevo y lo muestra por pantalla
 with open(args.filepath, 'r') as new_file:
     for line in new_file:
         print(line)
-        # print(line, end='')
+        #print(line, end='')
 
 
 # Lo mismo pero sin el with
